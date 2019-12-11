@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oracle.mapper.DetailMapper" >
+  <resultMap id="BaseResultMap" type="com.oracle.model.Detail" >
+    <id column="detail_id" property="detailId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="begin_station" property="beginStation" jdbcType="VARCHAR" />
+    <result column="end_station" property="endStation" jdbcType="VARCHAR" />
+    <result column="begin_time" property="beginTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="mileage" property="mileage" jdbcType="VARCHAR" />
+    <result column="run_time" property="runTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    detail_id, number, begin_station, end_station, begin_time, end_time, type, mileage, 
+    run_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.oracle.model.DetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.oracle.model.DetailExample" >
+    delete from detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.oracle.model.Detail" >
+    insert into detail (detail_id, number, begin_station, 
+      end_station, begin_time, end_time, 
+      type, mileage, run_time
+      )
+    values (#{detailId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{beginStation,jdbcType=VARCHAR}, 
+      #{endStation,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{mileage,jdbcType=VARCHAR}, #{runTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.oracle.model.Detail" >
+    insert into detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="beginStation != null" >
+        begin_station,
+      </if>
+      <if test="endStation != null" >
+        end_station,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="mileage != null" >
+        mileage,
+      </if>
+      <if test="runTime != null" >
+        run_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="beginStation != null" >
+        #{beginStation,jdbcType=VARCHAR},
+      </if>
+      <if test="endStation != null" >
+        #{endStation,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="mileage != null" >
+        #{mileage,jdbcType=VARCHAR},
+      </if>
+      <if test="runTime != null" >
+        #{runTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.oracle.model.DetailExample" resultType="java.lang.Integer" >
+    select count(*) from detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update detail
+    <set >
+      <if test="record.detailId != null" >
+        detail_id = #{record.detailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginStation != null" >
+        begin_station = #{record.beginStation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endStation != null" >
+        end_station = #{record.endStation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginTime != null" >
+        begin_time = #{record.beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mileage != null" >
+        mileage = #{record.mileage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.runTime != null" >
+        run_time = #{record.runTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update detail
+    set detail_id = #{record.detailId,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=VARCHAR},
+      begin_station = #{record.beginStation,jdbcType=VARCHAR},
+      end_station = #{record.endStation,jdbcType=VARCHAR},
+      begin_time = #{record.beginTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      mileage = #{record.mileage,jdbcType=VARCHAR},
+      run_time = #{record.runTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oracle.model.Detail" >
+    update detail
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="beginStation != null" >
+        begin_station = #{beginStation,jdbcType=VARCHAR},
+      </if>
+      <if test="endStation != null" >
+        end_station = #{endStation,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="mileage != null" >
+        mileage = #{mileage,jdbcType=VARCHAR},
+      </if>
+      <if test="runTime != null" >
+        run_time = #{runTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oracle.model.Detail" >
+    update detail
+    set number = #{number,jdbcType=VARCHAR},
+      begin_station = #{beginStation,jdbcType=VARCHAR},
+      end_station = #{endStation,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      mileage = #{mileage,jdbcType=VARCHAR},
+      run_time = #{runTime,jdbcType=VARCHAR}
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+
+  <!-- 批量删除 -->
+  <delete id="deleteDetail" parameterType="java.util.ArrayList">
+    delete from detail where detail_id in
+    <foreach collection="list" item="detailId" open="(" close=")" separator=",">
+      #{detailId}
+    </foreach>
+
+
+  </delete>
+
+</mapper>
